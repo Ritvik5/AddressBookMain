@@ -9,9 +9,10 @@
             while (true)
             {
                 Console.WriteLine("Select an Option");
-                Console.WriteLine("1. Add a new contact");
-                Console.WriteLine("2. Print all contacts");
-                Console.WriteLine("3. Quit");
+                Console.WriteLine("1. Add new Contact");
+                Console.WriteLine("2. Print all Contacts");
+                Console.WriteLine("3. Edit Previous Contact");
+                Console.WriteLine("4. Quit");
 
                 string choice = Console.ReadLine();
                 switch (choice)
@@ -63,6 +64,17 @@
                         manager.PrintContacts();
                         break;
                     case "3":
+                        Console.WriteLine("Enter the name of the contact to edit:");
+
+                        Console.Write("First Name: ");
+                        string firstName = Console.ReadLine();
+
+                        Console.Write("Last Name: ");
+                        string lastName = Console.ReadLine();
+
+                        manager.EditContact(firstName, lastName);
+                        break;
+                    case "4":
                         return;
                     default:
                         Console.WriteLine("Invalid choice");
