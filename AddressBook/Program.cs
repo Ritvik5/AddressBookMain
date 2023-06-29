@@ -8,11 +8,12 @@
 
             while (true)
             {
-                Console.WriteLine("Select an Option");
-                Console.WriteLine("1. Add new Contact");
-                Console.WriteLine("2. Print all Contacts");
-                Console.WriteLine("3. Edit Previous Contact");
-                Console.WriteLine("4. Quit");
+                Console.WriteLine("Select an Option: ");
+                Console.WriteLine("1. Add new Contact.");
+                Console.WriteLine("2. Print all Contacts.");
+                Console.WriteLine("3. Edit Previous Contact.");
+                Console.WriteLine("4. Delete Contact.");
+                Console.WriteLine("5. Quit");
 
                 string choice = Console.ReadLine();
                 switch (choice)
@@ -75,6 +76,17 @@
                         manager.EditContact(firstName, lastName);
                         break;
                     case "4":
+                        Console.WriteLine("Enter the name of the contact to delete:");
+
+                        Console.Write("First Name: ");
+                        string deleteFirstName = Console.ReadLine();
+
+                        Console.Write("Last Name: ");
+                        string deleteLastName = Console.ReadLine();
+
+                        manager.DeleteContact(deleteFirstName, deleteLastName);
+                        break;
+                    case "5":
                         return;
                     default:
                         Console.WriteLine("Invalid choice");
