@@ -1,0 +1,9 @@
+AddressBook name: DeathNote
+FirstName   = Xavier
+LastName    = Fernandez
+Address     = Mira Road
+City        = Bangalore
+State       = Karnataka
+Zipcode     = 560056
+PhoneNumber = 9045313033
+Email = xavier@123

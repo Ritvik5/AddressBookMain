@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             AddressBookManagement addressBookManager = new AddressBookManagement();
+            string filePath = @"C:\Users\sharm\Desktop\Fellowship program\RFP-287\AddressBook\AddressBook\ContactInfo.txt";
 
             while (true)
             {
@@ -23,7 +24,8 @@
                 Console.WriteLine("12. Sort enteries in the address book by City");
                 Console.WriteLine("13. Sort enteries in the address book by State");
                 Console.WriteLine("14. Sort enteries in the address book by Zipcode");
-                Console.WriteLine("15. Quit");
+                Console.WriteLine("15. Read from the txt file.");
+                Console.WriteLine("16. Quit");
                 Console.Write("Option: ");
 
                 string choice = Console.ReadLine();
@@ -154,6 +156,9 @@
                         addressBookManager.SortContactsByZipcode(sortByZipcode);
                         break;
                     case "15":
+                        addressBookManager.ReadContacts(filePath);
+                        break;
+                    case "16":
                         Console.WriteLine("Exiting...");
                         return;
                     default:

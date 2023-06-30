@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace AddressBook
 {
     public class AddressBookManagement
     {
+        public string filePath = @"C:\Users\sharm\Desktop\Fellowship program\RFP-287\AddressBook\AddressBook\ContactInfo.txt";
+        public Dictionary<string, List<Contacts>> obj;
         public Dictionary<string, List<Contacts>> addressBooks;
         public Dictionary<string, List<Contacts>> contactsByCity;
         public Dictionary<string, List<Contacts>> contactsByState;
         public AddressBookManagement()
         {
+            obj = new Dictionary<string, List<Contacts>>();
             addressBooks = new Dictionary<string, List<Contacts>>();
             contactsByCity = new Dictionary<string, List<Contacts>>();
             contactsByState = new Dictionary<string, List<Contacts>>();
@@ -44,6 +48,8 @@ namespace AddressBook
                 {
                     addressBook.Add(contact);
                     Console.WriteLine("Contact added successfully!");
+                    obj.Add(addressBookName, addressBook);
+                    WriteToFile(filePath);
                     if (!contactsByCity.ContainsKey(contact.City))
                     {
                         contactsByCity[contact.City] = new List<Contacts>();
@@ -280,12 +286,12 @@ namespace AddressBook
 
         public void SortContactsByName(string addressBookName)
         {
-            if(addressBooks.ContainsKey(addressBookName))
+            if (addressBooks.ContainsKey(addressBookName))
             {
                 List<Contacts> addressBook = addressBooks[addressBookName];
-                addressBook.Sort((c1,c2) => string.Compare(c1.FirstName + " " + c1.LastName,
-                                                           c2.FirstName + " " + c2.LastName,StringComparison.OrdinalIgnoreCase));
-                Console.WriteLine("Contacts in "+addressBookName+" sorted by name: ");
+                addressBook.Sort((c1, c2) => string.Compare(c1.FirstName + " " + c1.LastName,
+                                                           c2.FirstName + " " + c2.LastName, StringComparison.OrdinalIgnoreCase));
+                Console.WriteLine("Contacts in " + addressBookName + " sorted by name: ");
 
                 PrintContacts(addressBook);
             }
@@ -347,6 +353,38 @@ namespace AddressBook
             }
         }
 
+        public void WriteToFile(string filePath)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                foreach (var entry in obj)
+                {
+                    sw.WriteLine("AddressBook name: " + entry.Key);
+                    foreach (var value in entry.Value)
+                    {
+                        sw.WriteLine("FirstName   = " + value.FirstName);
+                        sw.WriteLine("LastName    = " + value.LastName);
+                        sw.WriteLine("Address     = " + value.Address);
+                        sw.WriteLine("City        = " + value.City);
+                        sw.WriteLine("State       = " + value.State);
+                        sw.WriteLine("Zipcode     = " + value.Zipcode);
+                        sw.WriteLine("PhoneNumber = " + value.PhoneNumber);
+                        sw.WriteLine("Email       = " + value.Email);
+                    }
+                }
+            }
+        }
+        public void ReadContacts(string filePath)
+        {
+            using(StreamReader sr = new StreamReader(filePath))
+            {
+                string data = " ";
+                while ((data = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(data);
+                }
+            }
+        }
     }
 }
 
