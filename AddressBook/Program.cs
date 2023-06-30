@@ -15,7 +15,9 @@
                 Console.WriteLine("4. Edit a contact in Address Book.");
                 Console.WriteLine("5. Delete Contact from an Address book.");
                 Console.WriteLine("6. Search contact by city or state");
-                Console.WriteLine("7. Quit");
+                Console.WriteLine("7. View Contacts by City ");
+                Console.WriteLine("8. View Contacts by State ");
+                Console.WriteLine("9. Quit");
                 Console.Write("Option: ");
 
                 string choice = Console.ReadLine();
@@ -74,7 +76,7 @@
                         Console.Write("Enter Last Name of the contact to edit: ");
                         string lastName = Console.ReadLine();
 
-                        addressBookManager.EditContact(bookNameToEditContact,firstName, lastName);
+                        addressBookManager.EditContact(bookNameToEditContact, firstName, lastName);
                         break;
                     case "5":
                         Console.WriteLine("Enter Address Book name:");
@@ -86,7 +88,7 @@
                         Console.Write("Enter Last Name of the contact to delete: ");
                         string deleteLastName = Console.ReadLine();
 
-                        addressBookManager.DeleteContact(bookNameToDeleteContact,deleteFirstName, deleteLastName);
+                        addressBookManager.DeleteContact(bookNameToDeleteContact, deleteFirstName, deleteLastName);
                         break;
                     case "6":
                         Console.WriteLine("Enter City or State name to search: ");
@@ -95,6 +97,18 @@
                         addressBookManager.SearchContactsByCityOrState(result);
                         break;
                     case "7":
+                        Console.WriteLine("Enter City to view contacts: ");
+                        string viewByCity = Console.ReadLine();
+
+                        addressBookManager.ViewContactsByCity(viewByCity);
+                        break;
+                    case "8":
+                        Console.WriteLine("Enter State to view contacts: ");
+                        string viewByState = Console.ReadLine();
+
+                        addressBookManager.ViewContactsByState(viewByState);
+                        break;
+                    case "9":
                         Console.WriteLine("Exiting...");
                         return;
                     default:

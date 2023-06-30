@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,13 @@ namespace AddressBook
     public class AddressBookManagement
     {
         public Dictionary<string, List<Contacts>> addressBooks;
+        public Dictionary<string, List<Contacts>> contactsByCity;
+        public Dictionary<string, List<Contacts>> contactsByState;
         public AddressBookManagement()
         {
             addressBooks = new Dictionary<string, List<Contacts>>();
+            contactsByCity = new Dictionary<string, List<Contacts>>();
+            contactsByState = new Dictionary<string, List<Contacts>>();
         }
         public void AddAddressBook(string addressBookName)
         {
@@ -39,6 +44,18 @@ namespace AddressBook
                 {
                     addressBook.Add(contact);
                     Console.WriteLine("Contact added successfully!");
+                    if (!contactsByCity.ContainsKey(contact.City))
+                    {
+                        contactsByCity[contact.City] = new List<Contacts>();
+                    }
+                    contactsByCity[contact.City].Add(contact);
+
+                    if (!contactsByState.ContainsKey(contact.State))
+                    {
+                        contactsByState[contact.State] = new List<Contacts>();
+                    }
+                    contactsByState[contact.State].Add(contact);
+
                     Console.WriteLine("-----------------------------------------");
                 }
                 else
@@ -51,6 +68,54 @@ namespace AddressBook
             else
             {
                 Console.WriteLine("Address Book not found!");
+            }
+        }
+
+        public void ViewContactsByCity(string city)
+        {
+            if (contactsByCity.ContainsKey(city))
+            {
+                List<Contacts> contacts = contactsByCity[city];
+                Console.WriteLine("Contacts in: " + city);
+                PrintContacts(contacts);
+            }
+            else
+            {
+                Console.WriteLine("No cntacts found in " + city);
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+        public void ViewContactsByState(string state)
+        {
+            if (contactsByState.ContainsKey(state))
+            {
+                List<Contacts> contacts = contactsByState[state];
+                Console.WriteLine("Contacts in: " + state);
+                PrintContacts(contacts);
+            }
+            else
+            {
+                Console.WriteLine("No cntacts found in " + state);
+                Console.WriteLine("No cntacts found in " + state);
+                Console.WriteLine("No cntacts found in " + state);
+                Console.WriteLine("No cntacts found in " + state);
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+
+        public void PrintContacts(List<Contacts> contacts)
+        {
+            foreach (Contacts contact in contacts)
+            {
+                Console.WriteLine("FirstName   = " + contact.FirstName);
+                Console.WriteLine("LastName    = " + contact.LastName);
+                Console.WriteLine("Address     = " + contact.Address);
+                Console.WriteLine("City        = " + contact.City);
+                Console.WriteLine("State       = " + contact.State);
+                Console.WriteLine("Zip         = " + contact.Zipcode);
+                Console.WriteLine("PhoneNumber = " + contact.PhoneNumber);
+                Console.WriteLine("Email       = " + contact.Email);
+                Console.WriteLine("-----------------------------------------");
             }
         }
 
@@ -156,9 +221,9 @@ namespace AddressBook
         {
             List<Contacts> searchResults = new List<Contacts>();
 
-            foreach(var addressBook in addressBooks.Values) 
+            foreach (var addressBook in addressBooks.Values)
             {
-                foreach(var contact in addressBook)
+                foreach (var contact in addressBook)
                 {
                     if (contact.City.Equals(cityOrState, StringComparison.OrdinalIgnoreCase) ||
                         contact.State.Equals(cityOrState, StringComparison.OrdinalIgnoreCase))
