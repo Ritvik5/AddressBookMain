@@ -9,7 +9,7 @@ namespace AddressBook
     public class AddressBookManagement
     {
         public Dictionary<string, List<Contacts>> addressBooks;
-        public AddressBookManagement() 
+        public AddressBookManagement()
         {
             addressBooks = new Dictionary<string, List<Contacts>>();
         }
@@ -27,15 +27,15 @@ namespace AddressBook
                 Console.WriteLine("-----------------------------------------");
             }
         }
-        public void AddContact(string addressBookName,Contacts contact)
+        public void AddContact(string addressBookName, Contacts contact)
         {
             if (addressBooks.ContainsKey(addressBookName))
             {
                 List<Contacts> addressBook = addressBooks[addressBookName];
-                
+
                 bool isDuplicate = addressBook.Any(c => string.Equals(c.FirstName, contact.FirstName, StringComparison.OrdinalIgnoreCase) &&
                                                         string.Equals(c.LastName, contact.LastName, StringComparison.OrdinalIgnoreCase));
-                if(!isDuplicate)
+                if (!isDuplicate)
                 {
                     addressBook.Add(contact);
                     Console.WriteLine("Contact added successfully!");
@@ -46,7 +46,7 @@ namespace AddressBook
                     Console.WriteLine("Duplicate entry ,contact with same name already exist");
                     Console.WriteLine("-----------------------------------------");
                 }
-               
+
             }
             else
             {
@@ -81,13 +81,13 @@ namespace AddressBook
             }
         }
 
-        public Contacts FindContact(List<Contacts> addressBook,string firstName,string lastName)
+        public Contacts FindContact(List<Contacts> addressBook, string firstName, string lastName)
         {
             return addressBook.Find(c => c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
                                          c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
         }
 
-        public void EditContact(string addressBookName,string firstName, string lastName)
+        public void EditContact(string addressBookName, string firstName, string lastName)
         {
             if (addressBooks.ContainsKey(addressBookName))
             {
@@ -132,7 +132,7 @@ namespace AddressBook
             if (addressBooks.ContainsKey(addressBookName))
             {
                 List<Contacts> addressBook = addressBooks[addressBookName];
-                Contacts contact = FindContact(addressBook,firstName,lastName);
+                Contacts contact = FindContact(addressBook, firstName, lastName);
                 if (contact != null)
                 {
                     addressBook.Remove(contact);
@@ -150,6 +150,45 @@ namespace AddressBook
                 Console.WriteLine("Address Book not found!");
                 Console.WriteLine("-----------------------------------------");
             }
-        }   
+        }
+
+        public void SearchContactsByCityOrState(string cityOrState)
+        {
+            List<Contacts> searchResults = new List<Contacts>();
+
+            foreach(var addressBook in addressBooks.Values) 
+            {
+                foreach(var contact in addressBook)
+                {
+                    if (contact.City.Equals(cityOrState, StringComparison.OrdinalIgnoreCase) ||
+                        contact.State.Equals(cityOrState, StringComparison.OrdinalIgnoreCase))
+                    {
+                        searchResults.Add(contact);
+                    }
+                }
+            }
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine("Search Results: ");
+                foreach (var contact in searchResults)
+                {
+                    Console.WriteLine("FirstName   = " + contact.FirstName);
+                    Console.WriteLine("LastName    = " + contact.LastName);
+                    Console.WriteLine("Address     = " + contact.Address);
+                    Console.WriteLine("City        = " + contact.City);
+                    Console.WriteLine("State       = " + contact.State);
+                    Console.WriteLine("Zip         = " + contact.Zipcode);
+                    Console.WriteLine("PhoneNumber = " + contact.PhoneNumber);
+                    Console.WriteLine("Email       = " + contact.Email);
+                    Console.WriteLine("-----------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No contacts found in the specified city or state");
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
     }
 }
+
