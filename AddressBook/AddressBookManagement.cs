@@ -277,6 +277,25 @@ namespace AddressBook
                 return 0;
             }
         }
+
+        public void SortContactsByName(string addressBookName)
+        {
+            if(addressBooks.ContainsKey(addressBookName))
+            {
+                List<Contacts> addressBook = addressBooks[addressBookName];
+                addressBook.Sort((c1,c2) => string.Compare(c1.FirstName + " " + c1.LastName,
+                                                           c2.FirstName + " " + c2.LastName,StringComparison.OrdinalIgnoreCase));
+                Console.WriteLine("Contacts in "+addressBookName+" sorted by name: ");
+
+                PrintContacts(addressBook);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found.");
+                Console.WriteLine("------------------------------------");
+            }
+
+        }   
     }
 }
 
