@@ -4,89 +4,91 @@
     {
         static void Main(string[] args)
         {
-            AddressBookManagement manager = new AddressBookManagement();
+            AddressBookManagement addressBookManager = new AddressBookManagement();
 
             while (true)
             {
                 Console.WriteLine("Select an Option: ");
-                Console.WriteLine("1. Add new Contact.");
-                Console.WriteLine("2. Print all Contacts.");
-                Console.WriteLine("3. Edit Previous Contact.");
-                Console.WriteLine("4. Delete Contact.");
-                Console.WriteLine("5. Quit");
+                Console.WriteLine("1. Add a new Address Book");
+                Console.WriteLine("2. Add a Contact to an address book.");
+                Console.WriteLine("3. Print all Contacts in Address book.");
+                Console.WriteLine("4. Edit a contact in Address Book.");
+                Console.WriteLine("5. Delete Contact from an Address book.");
+                Console.WriteLine("6. Quit");
+                Console.Write("Option: ");
 
                 string choice = Console.ReadLine();
                 switch (choice)
                 {
                     case "1":
-                        while(true)
-                        {
-                            Console.WriteLine("Enter contact information:");
-
-                            Contacts newContact = new Contacts();
-
-                            Console.Write("First Name: ");
-                            newContact.FirstName = Console.ReadLine();
-
-                            Console.Write("Last Name: ");
-                            newContact.LastName = Console.ReadLine();
-
-                            Console.Write("Address: ");
-                            newContact.Address = Console.ReadLine();
-
-                            Console.Write("City: ");
-                            newContact.City = Console.ReadLine();
-
-                            Console.Write("State: ");
-                            newContact.State = Console.ReadLine();
-
-                            Console.Write("Zip: ");
-                            newContact.Zipcode = Console.ReadLine();
-
-                            Console.Write("Phone Number: ");
-                            newContact.PhoneNumber = Console.ReadLine();
-
-                            Console.Write("Email: ");
-                            newContact.Email = Console.ReadLine();
-
-                            manager.AddContact(newContact);
-
-                            Console.Write("Do You want to add another contact? (Y/N) ");
-                            string answer = Console.ReadLine();
-
-                            if (answer.ToLower() != "y")
-                            {
-                                break;
-                            }
-                        }
+                        Console.WriteLine("Enter address book name: ");
+                        string addressBookName = Console.ReadLine();
+                        addressBookManager.AddAddressBook(addressBookName);
                         break;
                     case "2":
-                        Console.WriteLine("\nAddress Book:");
-                        manager.PrintContacts();
+                        Console.WriteLine("Enter address book name: ");
+                        string bookNameToAddContact = Console.ReadLine();
+                        Console.WriteLine("Enter contact details:");
+
+                        Contacts contactToAdd = new Contacts();
+
+                        Console.Write("First Name: ");
+                        contactToAdd.FirstName = Console.ReadLine();
+
+                        Console.Write("Last Name: ");
+                        contactToAdd.LastName = Console.ReadLine();
+
+                        Console.Write("Address: ");
+                        contactToAdd.Address = Console.ReadLine();
+
+                        Console.Write("City: ");
+                        contactToAdd.City = Console.ReadLine();
+
+                        Console.Write("State: ");
+                        contactToAdd.State = Console.ReadLine();
+
+                        Console.Write("Zip: ");
+                        contactToAdd.Zipcode = Console.ReadLine();
+
+                        Console.Write("Phone Number: ");
+                        contactToAdd.PhoneNumber = Console.ReadLine();
+
+                        Console.Write("Email: ");
+                        contactToAdd.Email = Console.ReadLine();
+
+                        addressBookManager.AddContact(bookNameToAddContact, contactToAdd);
                         break;
                     case "3":
-                        Console.WriteLine("Enter the name of the contact to edit:");
-
-                        Console.Write("First Name: ");
-                        string firstName = Console.ReadLine();
-
-                        Console.Write("Last Name: ");
-                        string lastName = Console.ReadLine();
-
-                        manager.EditContact(firstName, lastName);
+                        Console.WriteLine("Enter Address Book name: ");
+                        string bookNameToPrintContacts = Console.ReadLine();
+                        addressBookManager.PrintContacts(bookNameToPrintContacts);
                         break;
                     case "4":
-                        Console.WriteLine("Enter the name of the contact to delete:");
+                        Console.WriteLine("Enter address book name : ");
+                        string bookNameToEditContact = Console.ReadLine();
 
-                        Console.Write("First Name: ");
-                        string deleteFirstName = Console.ReadLine();
+                        Console.Write("Enter First Name of the contact to edit: ");
+                        string firstName = Console.ReadLine();
 
-                        Console.Write("Last Name: ");
-                        string deleteLastName = Console.ReadLine();
+                        Console.Write("Enter Last Name of the contact to edit: ");
+                        string lastName = Console.ReadLine();
 
-                        manager.DeleteContact(deleteFirstName, deleteLastName);
+                        addressBookManager.EditContact(bookNameToEditContact,firstName, lastName);
                         break;
                     case "5":
+                        Console.WriteLine("Enter Address Book name:");
+                        string bookNameToDeleteContact = Console.ReadLine();
+
+                        Console.Write("enter First Name of the contact to delete: ");
+                        string deleteFirstName = Console.ReadLine();
+
+                        Console.Write("Enter Last Name of the contact to delete: ");
+                        string deleteLastName = Console.ReadLine();
+
+                        addressBookManager.DeleteContact(bookNameToDeleteContact,deleteFirstName, deleteLastName);
+                        break;
+                    case "6":
+                        Console.WriteLine("Exiting...");
                         return;
                     default:
                         Console.WriteLine("Invalid choice");
