@@ -294,8 +294,59 @@ namespace AddressBook
                 Console.WriteLine("Address book not found.");
                 Console.WriteLine("------------------------------------");
             }
+        }
 
-        }   
+        public void SortContactsByCity(string addressBookName)
+        {
+            if (addressBooks.ContainsKey(addressBookName))
+            {
+                List<Contacts> addressBook = addressBooks[addressBookName];
+                addressBook.Sort((c1, c2) => string.Compare(c1.City, c2.City, StringComparison.OrdinalIgnoreCase));
+
+                Console.WriteLine("Contacts in " + addressBookName + " sorted by city: ");
+                PrintContacts(addressBook);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found.");
+                Console.WriteLine("-----------------------------");
+            }
+        }
+
+        public void SortContactsByState(string addressBookName)
+        {
+            if (addressBooks.ContainsKey(addressBookName))
+            {
+                List<Contacts> addressBook = addressBooks[addressBookName];
+                addressBook.Sort((c1, c2) => string.Compare(c1.State, c2.State, StringComparison.OrdinalIgnoreCase));
+
+                Console.WriteLine("Contacts in " + addressBookName + " sorted by state: ");
+                PrintContacts(addressBook);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found.");
+                Console.WriteLine("-----------------------------");
+            }
+        }
+
+        public void SortContactsByZipcode(string addressBookName)
+        {
+            if (addressBooks.ContainsKey(addressBookName))
+            {
+                List<Contacts> addressBook = addressBooks[addressBookName];
+                addressBook.Sort((c1, c2) => string.Compare(c1.Zipcode, c2.Zipcode, StringComparison.OrdinalIgnoreCase));
+
+                Console.WriteLine("Contacts in " + addressBookName + " sorted by Zipcode: ");
+                PrintContacts(addressBook);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found.");
+                Console.WriteLine("-----------------------------");
+            }
+        }
+
     }
 }
 
