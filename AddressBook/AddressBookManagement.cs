@@ -19,10 +19,12 @@ namespace AddressBook
             {
                 addressBooks[addressBookName] = new List<Contacts>();
                 Console.WriteLine("Address Book added successfully.");
+                Console.WriteLine("-----------------------------------------");
             }
             else
             {
                 Console.WriteLine("Address Book with the same name already exists!");
+                Console.WriteLine("-----------------------------------------");
             }
         }
         public void AddContact(string addressBookName,Contacts contact)
@@ -30,8 +32,21 @@ namespace AddressBook
             if (addressBooks.ContainsKey(addressBookName))
             {
                 List<Contacts> addressBook = addressBooks[addressBookName];
-                addressBook.Add(contact);
-                Console.WriteLine("Contact added successfully!");
+                
+                bool isDuplicate = addressBook.Any(c => string.Equals(c.FirstName, contact.FirstName, StringComparison.OrdinalIgnoreCase) &&
+                                                        string.Equals(c.LastName, contact.LastName, StringComparison.OrdinalIgnoreCase));
+                if(!isDuplicate)
+                {
+                    addressBook.Add(contact);
+                    Console.WriteLine("Contact added successfully!");
+                    Console.WriteLine("-----------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("Duplicate entry ,contact with same name already exist");
+                    Console.WriteLine("-----------------------------------------");
+                }
+               
             }
             else
             {
@@ -56,11 +71,13 @@ namespace AddressBook
                     Console.WriteLine("Zip         = " + contact.Zipcode);
                     Console.WriteLine("PhoneNumber = " + contact.PhoneNumber);
                     Console.WriteLine("Email       = " + contact.Email);
+                    Console.WriteLine("-----------------------------------------");
                 }
             }
             else
             {
                 Console.WriteLine("Address Book Not found...");
+                Console.WriteLine("-----------------------------------------");
             }
         }
 
@@ -96,15 +113,18 @@ namespace AddressBook
                     Console.Write("Email: ");
                     contact.Email = Console.ReadLine();
                     Console.WriteLine("Contact updated successfully!");
+                    Console.WriteLine("-----------------------------------------");
                 }
                 else
                 {
                     Console.WriteLine("Contact not found!");
+                    Console.WriteLine("-----------------------------------------");
                 }
             }
             else
             {
                 Console.WriteLine("Address Book not found!");
+                Console.WriteLine("-----------------------------------------");
             }
         }
         public void DeleteContact(string addressBookName, string firstName, string lastName)
@@ -117,15 +137,18 @@ namespace AddressBook
                 {
                     addressBook.Remove(contact);
                     Console.WriteLine("Contact deleted successfully!");
+                    Console.WriteLine("-----------------------------------------");
                 }
                 else
                 {
                     Console.WriteLine("Contact not found!");
+                    Console.WriteLine("-----------------------------------------");
                 }
             }
             else
             {
                 Console.WriteLine("Address Book not found!");
+                Console.WriteLine("-----------------------------------------");
             }
         }   
     }
