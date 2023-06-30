@@ -17,7 +17,9 @@
                 Console.WriteLine("6. Search contact by city or state");
                 Console.WriteLine("7. View Contacts by City ");
                 Console.WriteLine("8. View Contacts by State ");
-                Console.WriteLine("9. Quit");
+                Console.WriteLine("9. Contacts count by City");
+                Console.WriteLine("10. Contacts count by State");
+                Console.WriteLine("11. Quit");
                 Console.Write("Option: ");
 
                 string choice = Console.ReadLine();
@@ -109,6 +111,22 @@
                         addressBookManager.ViewContactsByState(viewByState);
                         break;
                     case "9":
+                        Console.WriteLine("Enter City Name: ");
+                        string countByCity = Console.ReadLine();
+
+                        int count = addressBookManager.CountByCity(countByCity);
+                        Console.WriteLine("Number of Contacts in "+countByCity+" : "+count);
+                        Console.WriteLine("-----------------------------------------");
+                        break;
+                    case "10":
+                        Console.WriteLine("Enter City State: ");
+                        string countByState = Console.ReadLine();
+
+                        int count2 = addressBookManager.CountByState(countByState);
+                        Console.WriteLine("Number of Contacts in " + countByState + " : " + count2);
+                        Console.WriteLine("-----------------------------------------");
+                        break;
+                    case "11":
                         Console.WriteLine("Exiting...");
                         return;
                     default:
